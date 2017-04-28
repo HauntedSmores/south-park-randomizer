@@ -1,60 +1,47 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1></h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+	  <div class="container">
+		  <div class="row">
+			<div class="col-md-12">
+				<h1>South Park Randomizer</h1>
+				<p>{{ randomNumber }}</p>
+				<button v-on:click="generate()">Generate Episode</button>
+			</div>
+		  </div>
+	  </div>
   </div>
 </template>
 
 <script>
+import * as axios from 'axios';
 export default {
-  name: 'app',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  }
-}
+		name: 'app',
+		created () {
+			const key = 'api_key=11067bbd9f322ba00d3797f02bca8c91f4f41154';
+			var http = axios.create({baseURL: 'http://api-public.guidebox.com/v2/'});
+
+			http.get('shows/405/episodes?season=1&' + key)
+			.then(response => {
+				console.log(response);
+				this.data = response.data;
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		},
+		data () {
+			return {
+				data: {},
+				randomNumber: "No random number."
+
+			}
+		},
+		methods: {
+			generate: function() {
+				this.randomNumber = Math.floor(Math.random() * (13 - 1)) + 1;
+				console.log(this.randomNumber);
+			}
+		}
+	}
 </script>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
+<style src="./assets/scss/app.scss" lang="scss"></style>
