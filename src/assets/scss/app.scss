@@ -1,1 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Assistant:400,700');
+@import 'variables';
 
+body {
+	// background-image: url('../img/ep_naturalwhite.png');
+	background-image: url('../img/noisy_net.png');
+}
+
+h1, h2, h3, h4, p {
+	font-family: 'Assistant', sans-serif;
+	color: white;
+}
+
+a {
+	color: $green;
+	text-transform: uppercase;
+	transition: color 0.5s;
+
+	&:hover {
+		color: $red;
+	}
+}
+
+button {
+	font-family: 'Assistant', sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	text-transform: uppercase;
+	background-color: transparent;
+	border: 3px solid $green;
+	border-radius: 5px;
+	color: $green;
+	padding: 20px;
+	outline: none;
+	transition: all 0.5s;
+
+	&:hover {
+		background-color: $green;
+		color: white;
+	}
+}
+
+a {
+	display: block;
+}
+
+.header {
+	margin-bottom: 50px;
+
+	h1 {
+		margin-bottom: 25px;
+	}
+}
+
+svg {
+	display: block;
+	width: 100px;
+	height: auto;
+	margin: 100px auto;
+	circle {
+		stroke: $green;
+	}
+}
