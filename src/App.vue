@@ -61,7 +61,7 @@
 				<h2>{{ episodeString }}</h2>
 				<p>{{ randomEpisode.overview }}</p>
 				<a v-for="link in randomEpisode.subscription_web_sources" v-bind:href="link.link">{{ link.display_name }}</a>
-				<template v-if="randomEpisode.free_web_sources.length > 0">
+				<template>
 					<a v-for="link in randomEpisode.free_web_sources" v-bind:href="link.link">{{ link.display_name }}</a>
 				</template>
 			</div>
@@ -107,10 +107,8 @@ export default {
 				this.randomEpisode = null;
 				http.get('shows/405/episodes?season=' + season + '&' + 'reverse_ordering=true&include_links=true&' + this.key)
 				.then(response => {
-					console.log(response);
 					this.total_episodes = response.data.total_results;
 					episode = Math.floor(Math.random() * (this.total_episodes - 1)) + 1;
-					console.log(episode);
 					this.randomEpisode = response.data.results[episode - 1];
 					this.episodeString = "Season " + season + " Episode " + episode;
 					this.season = season;
@@ -126,6 +124,3 @@ export default {
 	}
 </script>
 <style src="./assets/scss/app.scss" lang="scss"></style>
-<style lang="scss">
-
-</style>
